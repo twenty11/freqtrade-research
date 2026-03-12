@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "meta": {"strategy_id": "trend_futures_v1", "name": "Trend Futures", "author": "team"},
+  "market": {
+    "exchange": "okx",
+    "trading_mode": "futures",
+    "margin_mode": "isolated",
+    "timeframe": "5m",
+    "informative_timeframes": ["1h"],
+    "can_short": true,
+    "universe": {"mode": "static", "pairs": ["BTC/USDT:USDT", "ETH/USDT:USDT"], "blacklist": []}
+  },
+  "data": {
+    "startup_candle_count": 400,
+    "price_source": "ohlcv",
+    "feature_alignment": {"join_on": ["pair", "timeframe", "candle_close_time"], "allow_forward_fill": false, "max_feature_lag_minutes": 60}
+  },
+  "features": {"external": []},
+  "indicators": [{"id": "ema_fast", "type": "ema", "source": "close", "timeframe": "5m", "params": {"period": 20}}],
+  "signals": {"enter_long": {"logic": "all", "rules": [{"left": "ema_fast", "op": ">", "right": 0}], "tag": "demo"}},
+  "risk": {"max_open_trades": 2, "stake": {"mode": "fixed_fraction", "value": 0.02}, "leverage": {"mode": "fixed", "long": 2, "short": 2}, "stoploss": {"mode": "fixed", "value": -0.1}, "take_profit": {"mode": "roi_schedule", "steps": [{"minutes": 0, "roi": 0.03}]}},
+  "protections": [],
+  "optimization": {"enabled": false},
+  "validation": {"require_lookahead_analysis": true, "require_recursive_analysis": true, "min_trades": 50},
+  "reporting": {"export_trades": true, "export_signals": true, "save_metrics_json": true, "save_compiled_strategy": true, "save_manifest": true}
+}
