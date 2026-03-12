@@ -5,7 +5,6 @@ from pathlib import Path
 
 import typer
 
-from app.web import run_server
 from compiler.strategy_compiler import compile_strategy
 from domain.services.strategy_loader import load_strategy
 from dsl.semantic_validator import validate_semantics
@@ -117,12 +116,6 @@ def optimize(strategy_json: str, epochs: int = 20) -> None:
 def report(run_id: str) -> None:
     path = Path("data/reports") / run_id / "summary.md"
     typer.echo(path.read_text(encoding="utf-8"))
-
-
-@app.command()
-def ui(host: str = "127.0.0.1", port: int = 8088) -> None:
-    """Start local web UI for strategy research commands."""
-    run_server(host=host, port=port)
 
 
 @app.command()

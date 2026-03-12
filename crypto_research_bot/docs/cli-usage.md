@@ -8,5 +8,3 @@
 - `python -m app.cli optimize <strategy.json> --epochs 20`
 - `python -m app.cli report <run_id>`
 - `python -m app.cli promote <strategy.json>`
-
-- `python -m app.cli ui --host 127.0.0.1 --port 8088`
